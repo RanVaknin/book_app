@@ -9,7 +9,22 @@
             <h1>Hello World</h1>
         </header>
         <main>
-
+            <form action="/searches" method="post">
+                <input type="text" name="search" placeholder="Title or Author" required>
+                <fieldset>
+                    <label for="Title">
+                        <span>Title</span>
+                        <input type="radio" name="search" value="Title" required>
+                     </label>
+                </fieldset>
+                <fieldset>
+                    <label for="Author">
+                        <span>Author</span>
+                        <input type="radio" name="search" value="Author" required>
+                    </label>
+                </fieldset>
+                <button type="submit"> Search! </button>
+            </form>
         </main>
         <footer>
 
