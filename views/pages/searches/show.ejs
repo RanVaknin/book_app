@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Book App</title>
+        <link rel="stylesheet" type="text/css" href="styles/base.css"/>
+    </head>
+    <body>
+        <header>
+            <h1> Books </h1>
+        </header>
+        <main>
+            <% displayData.forEach(book => { %>
+               <img src= <%= book.thumbnail %> alt="book">
+                <p>Title: <%= book.title %></p>
+                <p>Authors: <%= book.authors %></p>
+                <p>Description: <%= book.description %></p>
+            <% }); %>
+
+        </main>
+        <footer>
+
+        </footer>
+    </body>
+</html>
