@@ -1,3 +1,32 @@
 body{
     background-color:bisque;
+        display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+main, header{
+
+    background-color: green;
+    width:100%;
+}
+
+#wrapper{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+h1{
+    font-weight: bolder;
+    font-size:5vh;
+}
+
+form{
+width:480px;
+}
+.divs{
+    background-color:yellow;
 }

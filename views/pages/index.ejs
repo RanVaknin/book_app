@@ -2,15 +2,24 @@
 <html>
     <head>
         <title>Book App</title>
+        <link rel="stylesheet" type="text/css" href="styles/reset.css"/>
         <link rel="stylesheet" type="text/css" href="styles/base.css"/>
     </head>
     <body>
+    <div id="wrapper"></div>
+        <div class="divs" id="1"></div>
+        <div class="divs" id="2"></div>
+        <div class="divs" id="3"></div>
+        <div class="divs" id="4"></div>
+    </div>
+
         <header>
             <h1>Hello World</h1>
         </header>
         <main>
+            <div>Search by Title or Author</div>
             <form action="/searches" method="post">
-                <input type="text" name="search" placeholder="Title or Author" required>
+                <input type="text" name="search" placeholder="Title or Author" id="textfield" required>
                 <fieldset>
                     <label for="Title">
                         <span>Title</span>
@@ -28,6 +37,7 @@
         </main>
         <footer>
 
+        
         </footer>
     </body>
 </html>
