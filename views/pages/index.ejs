@@ -6,34 +6,39 @@
         <link rel="stylesheet" type="text/css" href="styles/base.css"/>
     </head>
     <body>
-    <div id="wrapper"></div>
-        <div class="divs" id="1"></div>
-        <div class="divs" id="2"></div>
-        <div class="divs" id="3"></div>
-        <div class="divs" id="4"></div>
+
     </div>
 
         <header>
-            <h1>Hello World</h1>
+            <h1>You have (<%= data.length %>) book entries</h1>
+
+            <a href="/search"> Search For a Book</a>
+
         </header>
         <main>
-            <div>Search by Title or Author</div>
-            <form action="/searches" method="post">
-                <input type="text" name="search" placeholder="Title or Author" id="textfield" required>
-                <fieldset>
-                    <label for="Title">
-                        <span>Title</span>
-                        <input type="radio" name="search" value="Title" required>
-                     </label>
-                </fieldset>
-                <fieldset>
-                    <label for="Author">
-                        <span>Author</span>
-                        <input type="radio" name="search" value="Author" required>
-                    </label>
-                </fieldset>
-                <button type="submit"> Search! </button>
-            </form>
+            <br>
+            <ul>
+                <% data.forEach(book =>{ %>
+                    <li>
+                        <img src=   <%= book.image_url%> alt="image placehoder">
+                        <h3><%= book.title %> </h3>
+                        <p>Author: <%= book.author %> </p>
+                        <p>Book ISBN: <%= book.isbn %> </p>
+                        <p>Description: <%= book.descript %> </p>
+                        
+                    </li>
+                    <br>
+                    <form>
+                        <button>Delete Book</button>
+                        <button>Update Book</button>
+                    </form>
+                    <br>
+
+                <%   }) %>
+
+
+                </ul>
+
         </main>
         <footer>
 
