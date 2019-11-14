@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+    <head>
+            <%- include('../layout/head'); -%>
+    </head>
+    <body>
+        <main>
+            <div>Add a new book to bookshelf</div>
+            <form action="/add" method="post">
+                <input type="text" name="title" value="title" required>
+                <input type="text" name="author" value="author" required>
+                <input type="text" name="isbn" value="isbn" placeholder="" required>
+                <input type="text" name="image_url" value="image_url" required>
+                <textarea name="description" value="description" cols="10" rows="10"  required>asdasd</textarea>
+                <input type="text" name="bookshelf" value="bookshelf" required>
+
+                <button type="submit"> Add New Book </button>
+            </form>
+        </main>
+    </body>
+</html>

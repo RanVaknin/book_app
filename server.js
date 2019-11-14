@@ -17,27 +17,51 @@ app.use(express.static('./public'));
 app.set('view engine', 'ejs')
 
 
-
 // app.get('*', (req, res) => res.status(404).send('This route does not exist'));
 
-app.get('/', (req, res) => {
-  res.render('pages/index')
+app.get('/search', (req, res) => {
+  res.render('pages/searches/new')
 })
+app.post('/searches', bookHandler)
+app.get('/', getBook);
+app.get('/add' ,showBook)
+app.post('/add' ,addbook)
 
-app.get('/books/:id', (req, res ) => {
+
+function showBook(req,res){
+  res.render('pages/add')
+}
+
+function addbook(req,res){
+  let {title, author, isbn, descript,image_url,bookshelf} = req.body;
+  console.log('req.body :', req.body);
+  let SQL = 'INSERT into books(title, author, isbn, descript,image_url,bookshelf) VALUES ($1, $2, $3, $4, $5, $6);';
+  let values = [title, author, isbn, descript,image_url,bookshelf];
+  return client.query(SQL, values)
+    .then(res.redirect('/'))
+    .catch(err => console.error(err))
+}
+
+
+function getBook(req, res) {
+  let SQL = 'SELECT * FROM books;';
+  client.query(SQL)
+    .then(data => res.render('pages/index', { data: data.rows }))
+}
+
+app.get('/books/:id', (req, res) => {
   console.log('route is correct')
 
   let SQL = 'SELECT * FROM books WHERE id = $1;';
   let values = [req.params.id];
-  return client.query(SQL, values)
+  client.query(SQL, values)
     .then(data => {
-      return res.render('pages/books/show.ejs' , {banana: data.rows})
+      return res.render('pages/books/show.ejs', { data: data.rows })
     })
-    .catch( err => console.error(err));
+    .catch(err => console.error(err));
 
 });
 
-app.post('/searches', bookHandler)
 
 function bookHandler(req, res) {
   let url = `https://www.googleapis.com/books/v1/volumes?q=`;
@@ -46,7 +70,7 @@ function bookHandler(req, res) {
     url += `inauthor:${req.body.search[0]}`
   }
   if (req.body.search[1] === 'Title') {
-    url +=`intitle:${req.body.search[0]}`
+    url += `intitle:${req.body.search[0]}`
   }
 
   superagent.get(url)
@@ -54,7 +78,7 @@ function bookHandler(req, res) {
       let array = [];
       data.body.items.map(book => array.push(new Book(book.volumeInfo))
       )
-      res.render('pages/searches/show', {displayData: array} )
+      res.render('pages/searches/show', { displayData: array })
     })
     .catch(err => {
       res.render('pages/error');
