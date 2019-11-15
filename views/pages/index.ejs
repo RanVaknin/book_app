@@ -1,48 +1,42 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>Book App</title>
-        <link rel="stylesheet" type="text/css" href="styles/reset.css"/>
-        <link rel="stylesheet" type="text/css" href="styles/base.css"/>
-    </head>
-    <body>
 
-    </div>
+<head>
+	<title>Book App</title>
+	<link rel="stylesheet" type="text/css" href="styles/reset.css" />
+	<link rel="stylesheet" type="text/css" href="styles/base.css" />
+</head>
 
-        <header>
-            <h1>You have (<%= data.length %>) book entries</h1>
+<body>
+	<div id="wrapper">
+		<header>
+			<h1>You have (<%= potato.length %>) book entries</h1>
+			<a href="/search"> Search For a Book</a>
+		</header>
+		<main>
+			<br>
+			<ul>
+				<% potato.forEach(book =>{ %>
+				<li>
+					<img src=<%= book.image_url%> alt="image placehoder">
+					<h3><%= book.title %> </h3>
+					<p>Author: <%= book.author %> </p>
+					<p>Book ISBN: <%= book.isbn %> </p>
+					<p>Description: <%= book.descript %> </p>
 
-            <a href="/search"> Search For a Book</a>
+				</li>
+				<br>
+				<form>
+					<button value=<%= book.id %>> Delete Book </button>
+				</form>
+				<br>
+				<%   }) %>
+			</ul>
+		</main>
+		<footer>
 
-        </header>
-        <main>
-            <br>
-            <ul>
-                <% data.forEach(book =>{ %>
-                    <li>
-                        <img src=   <%= book.image_url%> alt="image placehoder">
-                        <h3><%= book.title %> </h3>
-                        <p>Author: <%= book.author %> </p>
-                        <p>Book ISBN: <%= book.isbn %> </p>
-                        <p>Description: <%= book.descript %> </p>
-                        
-                    </li>
-                    <br>
-                    <form>
-                        <button>Delete Book</button>
-                        <button>Update Book</button>
-                    </form>
-                    <br>
+		</footer>
+	</div>
+</body>
 
-                <%   }) %>
-
-
-                </ul>
-
-        </main>
-        <footer>
-
-        
-        </footer>
-    </body>
 </html>

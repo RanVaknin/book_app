@@ -27,31 +27,26 @@ app.get('/', getBook);
 app.get('/add' ,showBook)
 app.post('/add' ,addbook)
 
-
 function showBook(req,res){
   res.render('pages/add')
 }
 
 function addbook(req,res){
-  let {title, author, isbn, descript,image_url,bookshelf} = req.body;
-  console.log('req.body :', req.body);
+  let {title, authors, isbn, description,image_url,bookshelf} = req.body;
   let SQL = 'INSERT into books(title, author, isbn, descript,image_url,bookshelf) VALUES ($1, $2, $3, $4, $5, $6);';
-  let values = [title, author, isbn, descript,image_url,bookshelf];
+  let values = [title, authors, isbn, description,image_url,bookshelf];
   return client.query(SQL, values)
     .then(res.redirect('/'))
     .catch(err => console.error(err))
 }
 
-
 function getBook(req, res) {
   let SQL = 'SELECT * FROM books;';
   client.query(SQL)
-    .then(data => res.render('pages/index', { data: data.rows }))
+    .then(data => res.render('pages/index', { potato: data.rows }))
 }
 
 app.get('/books/:id', (req, res) => {
-  console.log('route is correct')
-
   let SQL = 'SELECT * FROM books WHERE id = $1;';
   let values = [req.params.id];
   client.query(SQL, values)
@@ -59,7 +54,6 @@ app.get('/books/:id', (req, res) => {
       return res.render('pages/books/show.ejs', { data: data.rows })
     })
     .catch(err => console.error(err));
-
 });
 
 
@@ -75,9 +69,9 @@ function bookHandler(req, res) {
 
   superagent.get(url)
     .then(data => {
-      let array = [];
-      data.body.items.map(book => array.push(new Book(book.volumeInfo))
-      )
+      let array = data.body.items.map(book => {
+        return new Book(book.volumeInfo)
+      })
       res.render('pages/searches/show', { displayData: array })
     })
     .catch(err => {
@@ -89,8 +83,9 @@ function bookHandler(req, res) {
 function Book(book) {
   this.thumbnail = book.imageLinks.smallThumbnail
   this.title = book.title;
-  this.authors = book.authors;
+  this.authors = book.authors[0];
   this.description = book.description;
+  this.isbn = book.industryIdentifiers[0].identifier;
 }
 
 app.listen(PORT, () => { console.log(`listening on port : ${PORT}`) });
