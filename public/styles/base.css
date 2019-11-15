@@ -7,12 +7,31 @@ body{
 }
 
 main, header{
-
     background-color: green;
-    width:100%;
+    width:45vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding:3vh;
+}
+
+#search-result{
+    background-color:pink;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-bottom:3vh;
+    padding:2vh;
+    width:90%;
+
+    
 }
 
 #wrapper{
+    width:80%;
+    background-color:purple;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -29,4 +48,15 @@ width:480px;
 }
 .divs{
     background-color:yellow;
+}
+#edit-button{
+    margin-bottom:3.5vh;
+}
+.editbutton{
+    background-color:orange;
+    width:7vw;
+    height:2.5vw;
+    font-size: 1vw;
+    line-height:2.5vw;
+    text-align: center;
 }
