@@ -7,6 +7,7 @@ const cors = require('cors')
 const superagent = require('superagent');
 const pg = require('pg');
 const client = new pg.Client(process.env.DATABASE_URL)
+const methodOverride = require('method-override');
 client.connect();
 client.on('error', err => console.error(err));
 
@@ -27,6 +28,14 @@ app.get('/', getBook);
 app.get('/add' ,showBook)
 app.post('/add' ,addbook)
 
+app.use(methodOverride((req, res) => {
+  if(req.body && typeof req.body === 'object' && '_method' in
+  req.body){
+    let method = req.body._method;
+    delete req.body._method;
+    return method;
+  }
+}))
 function showBook(req,res){
   res.render('pages/add')
 }
@@ -56,6 +65,13 @@ app.get('/books/:id', (req, res) => {
     .catch(err => console.error(err));
 });
 
+app.delete('/books/:id', (req, res) => {
+  let SQL = 'DELETE FROM books WHERE id = $1;';
+  let values = [req.params.id];
+  client.query(SQL, values)
+    .then(res.redirect('/'))
+    .catch(err => console.error(err));
+});
 
 function bookHandler(req, res) {
   let url = `https://www.googleapis.com/books/v1/volumes?q=`;

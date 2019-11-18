@@ -26,8 +26,9 @@
 
 				</li>
 				<br>
-				<form>
+				<form method="POST" action="<%=`/books/${book.id}` %>" >
 					<button value=<%= book.id %>> Delete Book </button>
+					<input type="hidden" name="_method" value="DELETE">
 				</form>
 				<br>
 				<%   }) %>
